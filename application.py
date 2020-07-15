@@ -49,18 +49,36 @@ def main():
 
         st.text('Weekly minor and major injuries by day:')
         df_days = df.groupby(by=[df.dates.dt.dayofweek]).mean()
-        ax = df_months.num_bikeshares.plot()
-        ax.set_ylabel('# Bikeshares')
-        ax.set_xlabel('Months')
-        ax.set_title('Monthly bikeshares and minor injuries.')
-
-        labels = ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat']
-        ax.xticks(range(0.7), labels, rotation='vertical')
-
+        ax = df_days.num_bikeshares.plot()
+        ax.set_ylabel('# Bikeshares (mean)')
+        ax.set_xlabel('Weekdays')
+        ax.set_title('Weekly bikeshares and minor injuries by day (mean)')
+        labels = ['', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun']
+        ax.set_xticklabels(labels)
         ax2 = ax.twinx()
-        df_months.minorinjuries_cyclists.plot(ax=ax2, legend=False, color="r")
+        df_days.minorinjuries_cyclists.plot(ax=ax2, legend=False, color="r")
         ax.figure.legend(loc=8, bbox_to_anchor=(0.5, 0.1))
-        ax2.set_ylabel('# minor injuries')
+        ax2.set_ylabel('# minor injuries (mean)')
+        st.pyplot()
+
+        st.text('Weekly minor and major injuries by day:')
+        df_days = df.groupby(by=[df.dates.dt.dayofweek]).mean()
+        ax = df_days.minorinjuries_cyclists.plot()
+        ax.set_ylabel('# Bikeshares (mean)')
+        ax.set_xlabel('Weekdays')
+        ax.set_title('Weekly bikeshares and minor injuries by day (mean)')
+        labels = ['', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun']
+        ax.set_xticklabels(labels)
+        ax2 = ax.twinx()
+        df_days.total_vehicles.plot(ax=ax2, legend=False, color="r")
+        ax.figure.legend(loc=8, bbox_to_anchor=(0.5, 0.1))
+        ax2.set_ylabel('# minor injuries (mean)')
+        st.pyplot()
+
+        df_pair = df.drop(['Unnamed: 0', 'fatalities_cyclists',
+                           'fatalities_pedestrians', 'majorinjuries_pedestrians',
+                           'minorinjuries_pedestrians'], axis=1)
+        sns.pairplot(df_pair)
         st.pyplot()
     else:
         st.title('Modelling')
