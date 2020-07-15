@@ -5,10 +5,11 @@ import numpy as np
 import pandas as pd
 # or: requests.get(url).content
 
-dates = np.arange(2015,2018)
-dates = np.concatenate((dates, np.array([201800]*12)+np.arange(1,13)))
-dates = np.concatenate((dates, np.array([201900]*12)+np.arange(1,13)))
-dates = np.concatenate((dates, np.array([202000]*5)+np.arange(1,6)))
+#dates = np.arange(2017,2018)
+#dates = np.concatenate((dates, np.array([201800]*12)+np.arange(1,13)))
+#dates = np.concatenate((dates, np.array([201900]*12)+np.arange(1,13)))
+#dates = np.concatenate((dates, np.array([202000]*5)+np.arange(1,6)))
+dates = np.array([201800]*12)+np.arange(1, 13)
 
 df = pd.DataFrame()
 for date in dates:
